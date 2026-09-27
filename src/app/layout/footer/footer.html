@@ -1,0 +1,89 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__group footer__group--intro">
+        <div class="footer__about">
+          <div class="footer__brand">
+            <img
+              class="footer__logo"
+              src="images/logo.png"
+              width="300"
+              height="294"
+              alt="Pakistan Nursing & Midwifery Council logo"
+              loading="lazy"
+            />
+            <p class="footer__welcome">Welcome to Pakistan Nursing &amp; Midwifery Council.</p>
+          </div>
+        </div>
+
+        <div class="footer__col footer__col--links">
+          <h4 class="footer__heading">Extra Links</h4>
+          <ul class="footer__links">
+            @for (link of extraLinks; track link.label) {
+              <li>
+                @if (link.route) {
+                  <a [routerLink]="link.route">{{ link.label }}</a>
+                } @else {
+                  <a [href]="link.href">{{ link.label }}</a>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__group">
+        <div class="footer__col">
+          <h4 class="footer__heading">Office Details</h4>
+          <ul class="footer__list footer__list--icons">
+            <li>
+              <app-icon name="mapMarker" />
+              <span
+                >PNMC building, PM National Health Complex, NIH, Chak Shehzad, Islamabad (45500),
+                Pakistan</span
+              >
+            </li>
+            <li>
+              <a href="mailto:info@pnmc.gov.pk">
+                <app-icon name="envelope" />
+                <span>info&#64;pnmc.gov.pk</span>
+              </a>
+            </li>
+            <li>
+              <app-icon name="phone" />
+              <span>(+92)-51-9255805</span>
+            </li>
+            <li>
+              <a href="http://www.pnmc.gov.pk">
+                <app-icon name="globe" />
+                <span>www.pnmc.gov.pk</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer__col footer__col--timings">
+          <h4 class="footer__heading">Office Timings</h4>
+          <ul class="footer__list">
+            <li>Mon - Thurs : 09:00- 15:00</li>
+            <li>Friday: 09:00 to 12:30<br /><br />Saturday : OFF</li>
+            <li>Sunday &amp; Holiday : OFF</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <ul class="footer__legal">
+        @for (link of legalLinks; track link.label) {
+          <li>
+            <a [href]="link.href">{{ link.label }}</a>
+          </li>
+        }
+      </ul>
+      <p class="footer__copyright">
+        Copyright © {{ year }} Pakistan Nursing &amp; Midwifery Council. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

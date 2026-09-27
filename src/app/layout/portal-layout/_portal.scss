@@ -1,0 +1,34 @@
+// Shared look of the online.pnmc.gov.pk portal pages (a Bootstrap 3 site).
+
+$green: #27ae60;
+$green-dark: #1e8449;
+$gradient: linear-gradient(90deg, #7cba72, #0071bc);
+$link-hover: #23527c;
+$border: #ddd;
+
+// No generic fallback on purpose: the portal renders in the browser's default font, like the original.
+$font-family: 'Source Sans Pro', 'Helvetica Neue', 'Dosis';
+$line-height: 1.428571429;
+
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+// Bootstrap's `.container`, with the portal's 5px side margins on phones.
+@mixin container {
+  margin: 0 5px;
+  padding: 0 15px;
+
+  @media (min-width: $screen-sm) {
+    width: 750px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: $screen-md) {
+    width: 970px;
+  }
+
+  @media (min-width: $screen-lg) {
+    width: 1170px;
+  }
+}

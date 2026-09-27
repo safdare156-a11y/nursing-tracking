@@ -1,0 +1,123 @@
+:host {
+  display: block;
+}
+
+.stats {
+  position: relative;
+  isolation: isolate;
+  padding: var(--section-space) 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: #d0d0d0 url('/images/overlay-6.png') -1000px 66px / cover no-repeat;
+    opacity: 0.15;
+  }
+}
+
+.stats__inner {
+  display: flex;
+  gap: var(--widget-gap);
+
+  > * {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: var(--widget-gap);
+    min-width: 0;
+  }
+}
+
+.stats__text {
+  color: var(--color-muted);
+}
+
+.stats__counters {
+  display: flex;
+  gap: 120px;
+}
+
+/* Counters may shrink below their number width (the number overflows), as on the original. */
+.counter {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.counter__number {
+  display: flex;
+  color: var(--color-secondary);
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 600;
+  line-height: 1em;
+}
+
+.counter__prefix,
+.counter__suffix {
+  flex-grow: 1;
+}
+
+.counter__prefix {
+  text-align: end;
+}
+
+.counter__title {
+  display: flex;
+  justify-content: center;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1em;
+}
+
+@media (min-width: 1025px) {
+  .stats::before {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 1024px) {
+  .stats::before {
+    background-position: -800px 200px;
+  }
+
+  .stats__inner {
+    flex-wrap: wrap;
+
+    > * {
+      flex-basis: 100%;
+    }
+  }
+
+  .stats__intro {
+    text-align: center;
+  }
+
+  .stats__counters {
+    justify-content: center;
+  }
+
+  .counter__number {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .stats::before {
+    background-position: -850px 240px;
+  }
+
+  .stats__counters {
+    flex-wrap: wrap;
+    gap: var(--widget-gap);
+  }
+
+  .counter__number {
+    font-size: 2rem;
+  }
+}

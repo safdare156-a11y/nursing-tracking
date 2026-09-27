@@ -1,0 +1,344 @@
+@use '../../layout/portal-layout/portal';
+
+:host {
+  display: block;
+}
+
+.portal-container {
+  @include portal.container;
+}
+
+/* Green patterned title band */
+.page-banner {
+  padding: 30px 15px;
+  background: #295 url('/images/portal/header-pattern.png');
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+  text-align: center;
+}
+
+.page-banner__title,
+.page-header {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.page-banner__title {
+  margin: 10px 0 5px;
+  color: #fff;
+  font-size: 32px;
+}
+
+/* White strip; the breadcrumb is 3px taller than it, as on the original. */
+.crumbs-bar {
+  height: 30px;
+  margin-bottom: 25px;
+  background-color: #fff;
+}
+
+.breadcrumb {
+  margin: 0 0 20px;
+  padding: 8px 15px;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 12px;
+  text-transform: uppercase;
+
+  li {
+    display: inline-block;
+    font-size: inherit;
+    line-height: inherit;
+
+    & + li::before {
+      content: '/\00a0';
+      padding: 0 5px;
+      color: #ccc;
+    }
+  }
+
+  a {
+    color: portal.$green;
+
+    &:hover {
+      color: portal.$link-hover !important;
+      font-weight: inherit;
+    }
+  }
+
+  .active {
+    color: #777;
+  }
+}
+
+.panel-row {
+  margin: 0 -15px;
+}
+
+.panel {
+  min-height: 500px;
+  padding: 4px 15px;
+  border: 1px solid portal.$border;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #777;
+}
+
+.alert {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #bce8f1;
+  border-radius: 4px;
+  background-color: #d9edf7;
+  color: #31708f;
+}
+
+.alert--danger {
+  border-color: #ebccd1;
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.page-header {
+  margin: 20px 0 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid portal.$border;
+  color: #000;
+  font-size: 30px;
+
+  small {
+    color: #777;
+    font-size: 65%;
+    font-weight: 400;
+    line-height: 1;
+  }
+}
+
+.track-column {
+  padding: 0 15px;
+}
+
+/* The top padding stands in for the original's two <br> tags. */
+.track-form {
+  padding-top: 49px;
+}
+
+/* flow-root keeps the help block's margin inside, like the original's floated form group. */
+.form-group {
+  display: flow-root;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: #555;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: portal.$line-height;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow:
+      inset 0 1px 1px rgba(0, 0, 0, 0.075),
+      0 0 8px rgba(102, 175, 233, 0.6);
+  }
+}
+
+.help-block {
+  display: block;
+  margin: 5px 0 10px;
+  color: #a94442;
+  font-size: small;
+}
+
+.form-actions {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.track-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid #4cae4c;
+  border-radius: 4px;
+  background-color: #5cb85c;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: portal.$line-height;
+
+  &:hover {
+    border-color: #398439;
+    background-color: #449d44;
+  }
+
+  &:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+.button-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 7px 1px 0;
+  vertical-align: middle;
+  border: 2px solid rgb(255 255 255 / 45%);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: verification-spin .7s linear infinite;
+}
+
+@keyframes verification-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Search result: details table with the photo beside it (col-md-9 / col-md-3) */
+.result {
+  margin: 0 -15px;
+  padding-top: 34px;
+}
+
+.result__details,
+.result__photo {
+  padding: 0 15px;
+}
+
+.result__hash {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.result-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid portal.$border;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid portal.$border;
+    line-height: portal.$line-height;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  tr > :first-child {
+    width: 50.5%;
+  }
+}
+
+.photo-thumb {
+  max-width: 100%;
+  padding: 4px;
+  border: 1px solid portal.$border;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.result__actions {
+  display: flex;
+  gap: 9px;
+  margin: -4px 15px 22px;
+}
+
+.result-btn {
+  padding: 7px 13px;
+  border: 1px solid #398439;
+  border-radius: 4px;
+  background: #5cb85c;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  &:hover { background: #449d44; }
+  &:disabled { cursor: wait; opacity: .65; }
+}
+
+.result-btn--print {
+  border-color: #ccc;
+  background: #fff;
+  color: #555;
+
+  &:hover { background: #e6e6e6; }
+}
+
+/* Bootstrap's col-md-10 col-md-offset-1 and col-md-6 col-md-offset-3 */
+@media (min-width: portal.$screen-md) {
+  .panel {
+    width: calc(100% * 10 / 12);
+    margin-left: calc(100% / 12);
+  }
+
+  .track-column {
+    width: 50%;
+    margin-left: 25%;
+  }
+
+  .result {
+    display: flex;
+  }
+
+  .result__details {
+    flex: 0 0 75%;
+  }
+
+  .result__photo {
+    flex: 0 0 25%;
+  }
+}
+
+@media (max-width: portal.$screen-sm - 1) {
+  .page-banner__title,
+  .page-header {
+    line-height: 21px;
+  }
+
+  .page-banner__title {
+    margin-bottom: 3px;
+  }
+
+  /* On the original the breadcrumb's container sits inside a -15px row. */
+  .crumbs-bar .portal-container {
+    margin: 0 -10px;
+  }
+}
+
+@media print {
+  .page-banner,
+  .crumbs-bar,
+  .result__actions {
+    display: none;
+  }
+
+  .panel {
+    min-height: 0;
+    border: 0;
+  }
+}

@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'admin@gmail.com';
+    }
+
+    match /nurses/{nurseId} {
+      allow read, write: if isAdmin();
+    }
+
+    // The public tracking form performs a direct document get using the NIC
+    // (or passport) as its normalized document ID. Listing is deliberately
+    // not allowed, so the directory cannot be browsed or bulk downloaded.
+    match /nurseLookup/{identifier} {
+      allow get: if true;
+      allow list: if false;
+      allow write: if isAdmin();
+    }
+  }
+}

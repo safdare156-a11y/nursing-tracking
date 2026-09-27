@@ -1,0 +1,112 @@
+<header>
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <ul class="social">
+        @for (link of socialLinks; track link.label) {
+          <li>
+            <a
+              class="social__link"
+              [href]="link.href"
+              [attr.aria-label]="link.label"
+              [style.--hover-bg]="link.hoverColor"
+              target="_blank"
+              rel="noopener"
+            >
+              <app-icon [name]="link.icon" />
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="brand-bar">
+    <div class="container brand-bar__inner">
+      <a class="brand" routerLink="/">
+        <img
+          src="images/logo-wide.jpg"
+          width="585"
+          height="103"
+          alt="Pakistan Nursing and Midwifery Council (Successor of Pakistan Nursing Council)"
+        />
+      </a>
+      <a class="login-btn" routerLink="/admin/login">Login</a>
+    </div>
+  </div>
+
+  <nav class="main-nav" aria-label="Main">
+    <div class="container main-nav__inner">
+      <button
+        type="button"
+        class="hamburger"
+        aria-label="Open menu"
+        aria-controls="main-menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="menuOpen.set(true)"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <div id="main-menu" class="menu-panel" [class.is-open]="menuOpen()">
+        <div class="menu-panel__head">
+          <a class="menu-panel__logo" routerLink="/" (click)="closeMenu()">
+            <img src="images/logo.png" width="300" height="294" alt="PNMC" />
+          </a>
+          <button
+            type="button"
+            class="menu-panel__close"
+            aria-label="Close menu"
+            (click)="closeMenu()"
+          >
+            X
+          </button>
+        </div>
+
+        <ul class="menu">
+          @for (item of menu; track item.label) {
+            <li class="menu__item" [class.is-open]="openSubmenu() === item.label">
+              @if (item.children; as children) {
+                <button
+                  type="button"
+                  class="menu__link"
+                  [attr.aria-expanded]="openSubmenu() === item.label"
+                  (click)="toggleSubmenu(item.label)"
+                >
+                  {{ item.label }}
+                  <span class="menu__caret"><app-icon name="caretDown" /></span>
+                </button>
+                <ul class="submenu">
+                  @for (child of children; track child.label) {
+                    <li>
+                      @if (child.route) {
+                        <a class="submenu__link" [routerLink]="child.route" (click)="closeMenu()">
+                          {{ child.label }}
+                        </a>
+                      } @else {
+                        <a class="submenu__link" [href]="child.href" (click)="closeMenu()">
+                          {{ child.label }}
+                        </a>
+                      }
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <a
+                  class="menu__link"
+                  [routerLink]="item.route"
+                  routerLinkActive="is-active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="closeMenu()"
+                >
+                  {{ item.label }}
+                </a>
+              }
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="menu-overlay" [class.is-open]="menuOpen()" (click)="closeMenu()"></div>
+    </div>
+  </nav>
+</header>

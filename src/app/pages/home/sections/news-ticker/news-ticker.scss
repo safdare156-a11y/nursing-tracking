@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  background-color: var(--color-white);
+}
+
+.ticker {
+  display: flex;
+  align-items: center;
+  height: 29px;
+  overflow: hidden;
+}
+
+/* The 100% left padding starts the headline at the right edge; -100% moves it fully out on the left. */
+.ticker__track {
+  display: flex;
+  flex-shrink: 0;
+  padding-left: 100%;
+  animation: ticker 22s linear infinite;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+.ticker__item {
+  padding: 0 15px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  line-height: 14px;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    padding-left: 0;
+    animation: none;
+  }
+}

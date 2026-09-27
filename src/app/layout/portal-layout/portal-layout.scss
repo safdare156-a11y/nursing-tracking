@@ -1,0 +1,316 @@
+@use 'portal';
+
+:host {
+  display: block;
+  min-height: 100vh;
+  border-top: 5px solid portal.$green;
+  background-color: #f2f2f2;
+  color: #444;
+  font-family: portal.$font-family;
+  font-size: 12px;
+  line-height: portal.$line-height;
+}
+
+.portal-container {
+  @include portal.container;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Logo bar */
+.portal-header {
+  height: 115px;
+  padding: 2px 0;
+  background-color: #fff;
+  color: #000;
+}
+
+.portal-header__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.portal-header__account {
+  display: none;
+  padding-top: 30px;
+
+  a {
+    color: #777;
+
+    &:hover {
+      color: #5e5e5e !important;
+      font-weight: inherit;
+    }
+  }
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.portal-header__signup:hover {
+  text-decoration: none;
+}
+
+/* Gradient navbar (flow-root keeps the list's 1px margin inside, like Bootstrap's clearfix) */
+.portal-nav {
+  display: flow-root;
+  min-height: 50px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid portal.$green-dark;
+  background-color: portal.$green;
+  background-image: portal.$gradient;
+  color: #fff;
+
+  /* Pinned once the logo bar has scrolled away (Bootstrap affix, no placeholder: the page shifts up). */
+  &.is-affixed {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    transition: all 0.6s ease-in-out;
+  }
+}
+
+.portal-nav__inner {
+  display: flex;
+}
+
+.portal-nav__header {
+  display: flex;
+}
+
+/* Small logo that fades in after scrolling */
+.portal-nav__brand {
+  flex-shrink: 0;
+  width: 47px;
+  height: 47px;
+  margin: 3px 0 0 -15px;
+  background: url('/images/portal/pnmc-logo-small.jpg') no-repeat;
+  animation: brand-fade-in 0.4s;
+}
+
+@keyframes brand-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.portal-nav__toggle {
+  display: none;
+}
+
+.portal-nav__list {
+  display: flex;
+  margin: 1px;
+}
+
+.portal-nav__link {
+  display: block;
+  padding: 15px;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: inherit;
+  line-height: 20px;
+  text-align: left;
+
+  &:hover {
+    color: #fff !important;
+    font-weight: inherit;
+    text-decoration: none;
+  }
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.dropdown {
+  position: relative;
+
+  &.is-open > .portal-nav__link {
+    background-color: portal.$green;
+  }
+
+  &.is-open > .dropdown-menu {
+    display: block;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  min-width: 160px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 4px 4px;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  font-size: 14px;
+  text-align: left;
+
+  a {
+    display: block;
+    padding: 3px 20px;
+    color: #333;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 2;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f5f5f5;
+      color: #262626 !important;
+      font-weight: 400;
+    }
+  }
+}
+
+.dropdown-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+/* Footer */
+.portal-footer {
+  border-top: 3px solid portal.$green-dark;
+  padding-top: 7px;
+  background-image: portal.$gradient;
+  color: #fff;
+}
+
+.portal-footer__inner {
+  padding: 0;
+}
+
+.portal-footer__col {
+  display: none;
+  justify-content: flex-end;
+  width: 33.33333%;
+
+  p {
+    margin: 0 0 10px;
+    padding-bottom: 13px;
+    font-size: 11px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: portal.$screen-sm) {
+  .portal-header {
+    height: auto;
+  }
+
+  .portal-header__account {
+    display: block;
+  }
+
+  .dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+
+  .portal-footer__col {
+    display: flex;
+  }
+}
+
+/* Phones: collapsible navbar with a toggle button */
+@media (max-width: portal.$screen-sm - 1) {
+  .portal-nav__inner {
+    display: block;
+  }
+
+  .portal-nav__header {
+    margin: 0 -15px;
+  }
+
+  .portal-nav__brand {
+    margin-left: 0;
+  }
+
+  .portal-nav__toggle {
+    display: block;
+    margin: 8px 15px 8px auto;
+    padding: 9px 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+      background-color: #333;
+    }
+  }
+
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #fff;
+
+    & + .icon-bar {
+      margin-top: 4px;
+    }
+  }
+
+  .portal-nav__collapse {
+    display: none;
+    margin: 0 -15px;
+    padding: 0 15px;
+    border-top: 1px solid #101010;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    &.is-open {
+      display: block;
+    }
+  }
+
+  .portal-nav__list {
+    flex-direction: column;
+  }
+
+  .portal-nav__link {
+    width: 100%;
+    padding: 10px 15px;
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+
+    a {
+      padding: 5px 15px 5px 25px;
+      color: #9d9d9d;
+      line-height: 20px;
+    }
+  }
+
+  .dropdown-divider {
+    background-color: #080808;
+  }
+}

@@ -1,0 +1,49 @@
+<section class="news">
+  <div class="container">
+    <h2 class="section-title news__title"><span>*Our</span> News</h2>
+
+    <div class="news__grid">
+      <div class="news__featured" appReveal="zoomIn" revealSpeed="fast">
+        <article class="post post--featured">
+          <a class="post__thumb" [href]="featured.url">
+            <img
+              [src]="featured.image"
+              width="1024"
+              height="500"
+              [alt]="featured.title"
+              loading="lazy"
+            />
+          </a>
+          <div class="post__body">
+            <div class="post__meta">
+              <app-icon name="calendar" />
+              <span>{{ featured.date }}</span>
+            </div>
+            <h3 class="post__title">
+              <a [href]="featured.url">{{ featured.title }}</a>
+            </h3>
+            <p class="post__excerpt">{{ featured.excerpt }}</p>
+            <a class="post__more" [href]="featured.url">Learn more</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="news__list" appReveal="zoomIn">
+        @for (post of recent; track post.url) {
+          <article class="post post--compact">
+            <div class="post__body">
+              <div class="post__meta">
+                <app-icon name="calendar" />
+                <span>{{ post.date }}</span>
+              </div>
+              <h3 class="post__title">
+                <a [href]="post.url">{{ post.title }}</a>
+              </h3>
+              <p class="post__excerpt">{{ post.excerpt }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>

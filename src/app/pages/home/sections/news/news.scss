@@ -1,0 +1,172 @@
+:host {
+  display: block;
+}
+
+.news {
+  padding: var(--section-space) 0;
+}
+
+.news__title {
+  margin-bottom: var(--widget-gap);
+}
+
+.news__grid {
+  display: flex;
+  gap: var(--widget-gap);
+
+  > * {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* The featured card is 15px wider than its column on both sides, as on the original. */
+.news__featured .post {
+  margin-inline: -15px;
+}
+
+.post {
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: var(--color-white);
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.post__thumb {
+  display: block;
+  padding-bottom: 6px;
+
+  img {
+    width: 100%;
+    border-radius: 5px;
+  }
+}
+
+.post--featured .post__body {
+  padding: 15px 30px 30px;
+}
+
+.post--compact .post__body {
+  padding: 35px 25px 15px;
+}
+
+.post__meta {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  height: 25px;
+  margin-bottom: 15px;
+
+  app-icon {
+    color: var(--color-primary);
+    font-size: 19px;
+  }
+
+  span {
+    margin-top: 2px;
+    color: var(--color-secondary);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1em;
+  }
+}
+
+.post__title {
+  margin: 0 0 15px;
+  font-size: 1.1rem;
+  line-height: 1em;
+
+  a {
+    color: var(--color-secondary);
+  }
+}
+
+.post--featured:hover .post__title a {
+  color: var(--color-primary);
+}
+
+.post--compact:hover .post__title a {
+  color: #00a54f;
+}
+
+.post__excerpt {
+  margin: 0 0 15px;
+  font-size: 1rem;
+  line-height: 1.3em;
+}
+
+.post__more {
+  display: inline-flex;
+  color: var(--color-secondary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 0.9em;
+
+  &:hover {
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .news__title {
+    text-align: center;
+  }
+
+  .news__grid {
+    flex-wrap: wrap;
+
+    > * {
+      flex-basis: 100%;
+    }
+  }
+
+  .news__featured .post {
+    width: 50%;
+    margin-inline: 0;
+  }
+
+  .post {
+    margin-bottom: 30px;
+  }
+
+  .post--featured .post__body {
+    padding: 20px 30px 30px;
+  }
+
+  .post--compact .post__body {
+    padding: 30px 25px 15px;
+  }
+}
+
+@media (max-width: 767px) {
+  .news__title {
+    margin-bottom: 60px;
+  }
+
+  .news__grid {
+    padding-inline: 2px 3px;
+  }
+
+  .news__featured .post {
+    width: 100%;
+  }
+
+  .post--featured .post__body {
+    padding: 25px;
+  }
+
+  .post--compact {
+    margin-inline: 15px;
+
+    .post__body {
+      padding: 25px 40px;
+    }
+  }
+
+  .post__title {
+    line-height: 1.1em;
+  }
+}

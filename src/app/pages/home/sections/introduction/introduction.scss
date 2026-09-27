@@ -1,0 +1,167 @@
+:host {
+  display: block;
+}
+
+.intro {
+  padding: var(--section-space) 0 9em;
+}
+
+.intro__inner {
+  display: flex;
+  gap: 50px;
+
+  > * {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+/* Overlapping photos with a faded PNMC seal behind them. */
+.intro__media {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url('/images/logo-transparent.png') 77px 76px / 83% auto no-repeat;
+    opacity: 0.22;
+  }
+}
+
+.intro__photo img {
+  width: 100%;
+  filter: brightness(100%) contrast(110%) saturate(0%);
+  transition: filter 0.5s;
+
+  &:hover {
+    filter: brightness(100%) contrast(100%) saturate(100%);
+  }
+}
+
+.intro__photo--main {
+  width: 65%;
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+.intro__photo--secondary {
+  align-self: flex-end;
+  width: 48%;
+  margin-top: -29%;
+
+  img {
+    border: 10px solid var(--color-white);
+    border-radius: 15px;
+  }
+}
+
+.intro__badge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: center;
+  width: 25%;
+  margin: -21em 0 0 6em;
+  padding: 2em;
+  border-radius: 5px;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.53);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.intro__badge-year {
+  font-size: 2.8rem;
+}
+
+.intro__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--widget-gap);
+}
+
+.intro__heading {
+  width: 79.16%;
+}
+
+.intro__text {
+  color: var(--color-secondary);
+
+  p {
+    margin: 0 0 1.3em;
+    font-size: 1rem;
+    line-height: 1.3em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .intro {
+    padding: 0 0 3em;
+  }
+
+  .intro__inner {
+    flex-wrap: wrap;
+
+    > * {
+      flex-basis: 100%;
+    }
+  }
+
+  .intro__media::before {
+    background-position: 0 0;
+  }
+
+  .intro__badge-year {
+    font-size: 2.3rem;
+  }
+
+  .intro__content {
+    margin-top: 9em;
+  }
+}
+
+@media (max-width: 767px) {
+  .intro__photo--main {
+    width: 80%;
+  }
+
+  .intro__photo--secondary {
+    width: 51%;
+    margin-top: -34%;
+  }
+
+  .intro__badge {
+    align-self: flex-start;
+    width: 45%;
+    margin: -6em 0 0 3em;
+  }
+
+  .intro__badge-year {
+    font-size: 2rem;
+  }
+
+  .intro__content {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .intro__heading {
+    width: 100%;
+  }
+}

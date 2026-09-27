@@ -1,0 +1,115 @@
+:host {
+  display: block;
+}
+
+.contact {
+  position: relative;
+  background: url('/images/contact-bg.jpg') center / cover no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      80deg,
+      var(--color-black-55) 34%,
+      var(--color-primary-85) 100%
+    );
+  }
+}
+
+.contact__inner {
+  position: relative;
+  display: flex;
+
+  > * {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+.contact__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--widget-gap);
+}
+
+.contact__title,
+.contact__text {
+  color: var(--color-white);
+}
+
+.contact__btn:hover {
+  border-color: var(--color-white);
+  background-color: var(--color-white-19);
+}
+
+/* The nurse photo rises above the top edge of the section. */
+.contact__visual {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  margin-top: -5%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: url('/images/overlay-5.png') 0 150px / cover no-repeat;
+    opacity: 0.28;
+  }
+}
+
+.contact__nurse {
+  align-self: flex-end;
+  width: 63%;
+  margin-top: -90px;
+  filter: brightness(100%) contrast(110%) saturate(0%);
+}
+
+@media (min-width: 1025px) {
+  .contact {
+    background-attachment: fixed;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact__inner {
+    flex-wrap: wrap;
+    gap: var(--widget-gap);
+    padding-top: 6em;
+
+    > * {
+      flex-basis: 100%;
+    }
+  }
+
+  .contact__content {
+    text-align: center;
+  }
+
+  .contact__visual {
+    margin-top: 0;
+
+    &::before {
+      background-position: 0 200px;
+    }
+  }
+
+  .contact__nurse {
+    align-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact__visual::before {
+    background-position: -50px 67px;
+  }
+
+  .contact__nurse {
+    width: 100%;
+  }
+}

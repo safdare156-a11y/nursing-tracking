@@ -1,0 +1,293 @@
+/* Global design tokens and base styles shared by every component. */
+
+:root {
+  --color-primary: #1f7d53;
+  --color-primary-85: #1f7d53d9;
+  --color-secondary: #18230f;
+  --color-text: #8b8b8b;
+  --color-muted: #646464;
+  --color-white: #ffffff;
+  --color-white-19: #ffffff30;
+  --color-black-55: #0000008c;
+  --color-border: #d0d0d0;
+  --color-hover: darkgreen;
+
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Heebo', sans-serif;
+
+  --container-width: 1300px;
+  --section-space: 6em;
+  --widget-gap: 30px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--color-white);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--color-secondary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 4.2rem;
+  line-height: 0.9em;
+}
+
+h2 {
+  font-size: 2.8rem;
+  line-height: 1em;
+}
+
+h3 {
+  font-size: 2rem;
+  line-height: 1em;
+}
+
+h4 {
+  font-size: 1.1rem;
+  line-height: 1em;
+}
+
+p {
+  margin: 0 0 0.9rem;
+  font-size: 15px;
+  line-height: 21px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--color-hover) !important;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+/* "*Our News" style headings: dark text with a green highlighted span. */
+.section-title {
+  margin: 0;
+  color: var(--color-secondary);
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 600;
+  line-height: 1em;
+
+  span {
+    display: inline-block;
+    color: var(--color-primary);
+  }
+}
+
+.divider {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 0.5px solid var(--color-primary);
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 0.9em;
+  text-align: center;
+  transition:
+    all 0.5s,
+    transform 0.3s;
+
+  &:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    font-weight: 600;
+  }
+
+  &--float:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* Entrance animations; the appReveal directive sets `animation-name` when the element is in view. */
+.reveal {
+  visibility: hidden;
+}
+
+/* `backwards` (not `both`) so hover transforms still work once the animation has finished. */
+.reveal.is-revealed {
+  visibility: visible;
+  animation-duration: 1.25s;
+  animation-fill-mode: backwards;
+}
+
+.reveal.is-revealed.reveal--fast {
+  animation-duration: 0.8s;
+}
+
+.reveal.is-revealed.reveal--slow {
+  animation-duration: 2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    visibility: visible;
+  }
+
+  .reveal.is-revealed {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.3rem;
+  }
+
+  h2,
+  .section-title {
+    font-size: 2.3rem;
+  }
+
+  h3 {
+    font-size: 1.7rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+  }
+
+  .container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 767px) {
+  h1 {
+    font-size: 2.8rem;
+    line-height: 1em;
+  }
+
+  h2,
+  .section-title {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    line-height: 1.1em;
+  }
+}

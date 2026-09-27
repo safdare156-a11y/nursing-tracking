@@ -1,0 +1,26 @@
+<section class="stats">
+  <div class="container stats__inner">
+    <div class="stats__intro">
+      <h2 class="section-title">Nursing in <span>*Pakistan</span></h2>
+      <div class="stats__text" appReveal revealSpeed="fast">
+        <p>Official updates for Registered Nurses, Students, and Nursing Institutes by PNMC.</p>
+      </div>
+    </div>
+
+    <div class="stats__figures">
+      <hr class="divider" />
+      <div class="stats__counters">
+        @for (stat of stats; track stat.label) {
+          <div class="counter">
+            <div class="counter__number">
+              <span class="counter__prefix"></span>
+              <span [appCountUp]="stat.value"></span>
+              <span class="counter__suffix">{{ stat.suffix }}</span>
+            </div>
+            <div class="counter__title">{{ stat.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

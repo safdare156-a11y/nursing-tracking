@@ -1,0 +1,25 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="admin-login-title">
+    <img src="images/portal/pnmc-logo-small.jpg" width="72" height="72" alt="PNMC" />
+    <p class="login-card__eyebrow">PNMC administration</p>
+    <h1 id="admin-login-title">Admin sign in</h1>
+    <p class="login-card__hint">Only the authorised administrator account can access nurse records.</p>
+
+    @if (error()) {
+      <p class="login-card__error" role="alert">{{ error() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label for="admin-email">Email address</label>
+      <input id="admin-email" type="email" formControlName="email" autocomplete="username" />
+
+      <label for="admin-password">Password</label>
+      <input id="admin-password" type="password" formControlName="password" autocomplete="current-password" />
+
+      <button type="submit" [disabled]="submitting()">
+        {{ submitting() ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+    <a class="login-card__back" routerLink="/">← Back to PNMC website</a>
+  </section>
+</main>

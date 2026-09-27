@@ -1,0 +1,22 @@
+<section class="features">
+  <div class="container">
+    <div class="features__grid">
+      @for (feature of features; track feature.title) {
+        <article
+          class="feature"
+          appReveal="fadeInUp"
+          [revealSpeed]="feature.speed"
+          [revealDelay]="feature.delay"
+        >
+          <div class="feature__head">
+            <img class="feature__icon" [src]="feature.icon" width="300" height="300" alt="" />
+            <h4 class="feature__title" [style.margin-right.px]="feature.titleGap">
+              {{ feature.title }}
+            </h4>
+          </div>
+          <p class="feature__text">{{ feature.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

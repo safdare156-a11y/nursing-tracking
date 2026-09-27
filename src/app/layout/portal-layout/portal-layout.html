@@ -1,0 +1,90 @@
+<header class="portal-header">
+  <div class="portal-container portal-header__inner">
+    <a routerLink="/" title="PAKISTAN NURSING & MIDWIFERY COUNCIL">
+      <img
+        src="images/portal/pnmc-logo.jpeg"
+        width="94"
+        height="92"
+        alt="Pakistan Nursing & Midwifery Council"
+      />
+    </a>
+    <div class="portal-header__account">
+      <a class="portal-header__signup" href="https://online.pnmc.gov.pk/signup">
+        <strong>SIGN UP</strong>
+      </a>
+      &nbsp; | &nbsp;
+      <a routerLink="/admin/login"><strong>LOGIN</strong></a>
+    </div>
+  </div>
+</header>
+
+<nav class="portal-nav" aria-label="Portal" [class.is-affixed]="affixed()">
+  <div class="portal-container portal-nav__inner">
+    <div class="portal-nav__header">
+      @if (scrolled()) {
+        <a class="portal-nav__brand" routerLink="/" aria-label="PNMC home"></a>
+      }
+      <button
+        type="button"
+        class="portal-nav__toggle"
+        aria-controls="portal-menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="menuOpen.set(!menuOpen())"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div id="portal-menu" class="portal-nav__collapse" [class.is-open]="menuOpen()">
+      <ul class="portal-nav__list">
+        <li>
+          <a class="portal-nav__link" routerLink="/" (click)="closeMenus()">PNMC Website</a>
+        </li>
+        <li class="dropdown" [class.is-open]="servicesOpen()">
+          <button
+            type="button"
+            class="portal-nav__link"
+            aria-haspopup="true"
+            [attr.aria-expanded]="servicesOpen()"
+            (click)="servicesOpen.set(!servicesOpen())"
+          >
+            PNMC's Online Services<b class="caret"></b>
+          </button>
+          <ul class="dropdown-menu">
+            @for (group of serviceGroups; track $index) {
+              @if (!$first) {
+                <li class="dropdown-divider" role="separator"></li>
+              }
+              @for (link of group; track link.label) {
+                <li>
+                  @if (link.route) {
+                    <a [routerLink]="link.route" (click)="closeMenus()">{{ link.label }}</a>
+                  } @else if (link.href) {
+                    <a [href]="link.href">{{ link.label }}</a>
+                  } @else {
+                    <a>{{ link.label }}</a>
+                  }
+                </li>
+              }
+            }
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet />
+
+<footer class="portal-footer">
+  <div class="portal-container portal-footer__inner">
+    <div class="portal-footer__col">
+      <p>
+        Copyright © 2022-{{ year }} Pakistan Nursing &amp; Midwifery Council. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

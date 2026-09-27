@@ -1,0 +1,124 @@
+<header class="page-banner">
+  <div class="portal-container">
+    <h1 class="page-banner__title">Track and Trace - Nursing Professional</h1>
+  </div>
+</header>
+
+<div class="crumbs-bar">
+  <div class="portal-container">
+    <ol class="breadcrumb">
+      <li><a routerLink="/">Home</a></li>
+      <li class="active"><a routerLink="/track/nursing-professional">Track and Trace</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="portal-container">
+  <div class="panel-row">
+    <div class="panel">
+      @if (notice(); as notice) {
+        <div class="alert" [class.alert--danger]="notice.type === 'danger'" role="status">
+          {{ notice.text }}
+        </div>
+      }
+
+      <h1 class="page-header">
+        Track Nursing Professionals
+        <small>(Nurse, LHV, Midwife, Community Midwife, CNA)</small>
+      </h1>
+
+      @if (professional(); as p) {
+        <div class="result">
+          <div class="result__details">
+            <div class="result__hash">#</div>
+            <table class="result-table">
+              <tbody>
+                <tr>
+                  <th scope="row">Full Name</th>
+                  <td>{{ p.fullName }}</td>
+                </tr>
+                <tr>
+                  <td>NIC Number</td>
+                  <td>{{ p.nicNumber }}</td>
+                </tr>
+                <tr>
+                  <td>Qualification</td>
+                  <td>
+                    @for (qualification of p.qualifications; track $index) {
+                      <div>{{ qualification }}</div>
+                    }
+                  </td>
+                </tr>
+                <tr>
+                  <td>Speciality</td>
+                  <td>{{ p.speciality }}</td>
+                </tr>
+                <tr>
+                  <td>Registration Category</td>
+                  <td>{{ p.registrationCategory }}</td>
+                </tr>
+                <tr>
+                  <td>Registration Number</td>
+                  <td>{{ p.registrationNumber }}</td>
+                </tr>
+                <tr>
+                  <td>Initial Registration Date</td>
+                  <td>{{ p.initialRegistrationDate | date: 'dd MMM yyyy' }}</td>
+                </tr>
+                <tr>
+                  <td>License Expiration Date</td>
+                  <td>{{ p.licenseExpirationDate | date: 'dd MMM yyyy' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="result__photo">
+            <img
+              class="photo-thumb"
+              [src]="p.photoUrl"
+              width="124"
+              height="151"
+              [alt]="'Photo of ' + p.fullName"
+            />
+          </div>
+        </div>
+        <div class="result__actions">
+          <button type="button" class="result-btn" [disabled]="downloadingPdf()" (click)="downloadPdf()">
+            {{ downloadingPdf() ? 'Preparing PDF…' : 'Download PDF' }}
+          </button>
+          <button type="button" class="result-btn result-btn--print" (click)="printResult()">Print</button>
+        </div>
+      } @else {
+        <div class="track-column">
+          <form class="track-form" (submit)="onSubmit($event)">
+            <div class="form-group">
+              <label for="track-identifier">Enter your NIC or Passport number below</label> *
+              <input
+                #identifierInput
+                id="track-identifier"
+                type="text"
+                class="form-control"
+                required
+                maxlength="15"
+                autocomplete="off"
+                [value]="identifier()"
+                (input)="identifier.set(identifierInput.value)"
+              />
+              <small class="help-block">{{ error() }}</small>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="track-btn" [disabled]="searching()">
+                @if (searching()) {
+                  <span class="button-spinner" aria-hidden="true"></span>
+                  Verifying…
+                } @else {
+                  Track Nursing Professional
+                }
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+    </div>
+  </div>
+</div>

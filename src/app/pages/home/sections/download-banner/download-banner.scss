@@ -1,0 +1,52 @@
+:host {
+  display: block;
+}
+
+.download-banner {
+  position: relative;
+  padding: var(--section-space) 0;
+  background: url('/images/download-banner-bg.jpg') top right / cover no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-secondary);
+    opacity: 0.57;
+  }
+
+  > .container {
+    position: relative;
+  }
+}
+
+.download-banner__box {
+  position: relative;
+  padding: 3em;
+  border-radius: 10px;
+  background-image: linear-gradient(93deg, #00000091 0%, var(--color-primary-85) 100%);
+}
+
+.download-banner__title {
+  text-align: center;
+
+  a {
+    color: var(--color-white);
+  }
+
+  a:hover {
+    color: var(--color-white) !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .download-banner {
+    padding: 3em 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .download-banner__box {
+    padding: 2em 1em;
+  }
+}
