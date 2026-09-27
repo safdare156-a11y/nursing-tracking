@@ -30,7 +30,6 @@ export class TrackNursingProfessional {
   protected readonly error = signal('');
   protected readonly notice = signal<Notice | null>(null);
   protected readonly searching = signal(false);
-  protected readonly downloadingPdf = signal(false);
   /** Search result; while set, it replaces the form (same URL, like the original). */
   protected readonly professional = signal<NursingProfessional | null>(null);
 
@@ -81,71 +80,10 @@ export class TrackNursingProfessional {
     });
   }
 
-  protected printResult(): void {
-    window.print();
-  }
-
-  protected async downloadPdf(): Promise<void> {
-    const professional = this.professional();
-    if (!professional) return;
-
-    this.downloadingPdf.set(true);
-    try {
-      const { jsPDF } = await import('jspdf');
-      const pdf = new jsPDF({ format: 'a4', unit: 'mm' });
-      const rows: Array<[string, string]> = [
-        ['Full Name', professional.fullName],
-        ['NIC Number', professional.nicNumber],
-        ['Qualification', professional.qualifications.join(', ')],
-        ['Speciality', professional.speciality],
-        ['Registration Category', professional.registrationCategory],
-        ['Registration Number', professional.registrationNumber],
-        ['Initial Registration Date', professional.initialRegistrationDate],
-        ['License Expiration Date', professional.licenseExpirationDate],
-      ];
-
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(18);
-      pdf.text('Nursing Professional Verification', 20, 22);
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(10);
-      pdf.text('Pakistan Nursing & Midwifery Council', 20, 29);
-      pdf.setDrawColor(39, 174, 96);
-      pdf.line(20, 33, 190, 33);
-
-      let y = 43;
-      for (const [label, value] of rows) {
-        const valueLines = pdf.splitTextToSize(value || 'N/A', 98);
-        const rowHeight = Math.max(10, valueLines.length * 5 + 4);
-        pdf.setDrawColor(220, 220, 220);
-        pdf.rect(20, y, 170, rowHeight);
-        pdf.line(82, y, 82, y + rowHeight);
-        pdf.setFont('helvetica', 'bold');
-        pdf.text(label, 23, y + 6);
-        pdf.setFont('helvetica', 'normal');
-        pdf.text(valueLines, 85, y + 6);
-        y += rowHeight;
-      }
-
-      pdf.setFontSize(8);
-      pdf.setTextColor(100);
-      pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 20, 282);
-      pdf.save(`nursing-professional-${safeFilePart(professional.nicNumber)}.pdf`);
-    } catch {
-      this.notice.set({ type: 'info', text: 'PDF could not be generated. Please try again.' });
-    } finally {
-      this.downloadingPdf.set(false);
-    }
-  }
-
   private reset(): void {
     this.professional.set(null);
     this.notice.set(null);
     this.error.set('');
     this.identifier.set('');
   }
-}
-
-function safeFilePart(value: string): string {
-  return value.replace(/[^a-z0-9]+/gi, '-') || 'record';
 }

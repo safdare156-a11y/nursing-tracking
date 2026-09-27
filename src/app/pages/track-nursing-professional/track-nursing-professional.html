@@ -82,12 +82,6 @@
             />
           </div>
         </div>
-        <div class="result__actions">
-          <button type="button" class="result-btn" [disabled]="downloadingPdf()" (click)="downloadPdf()">
-            {{ downloadingPdf() ? 'Preparing PDF…' : 'Download PDF' }}
-          </button>
-          <button type="button" class="result-btn result-btn--print" (click)="printResult()">Print</button>
-        </div>
       } @else {
         <div class="track-column">
           <form class="track-form" (submit)="onSubmit($event)">

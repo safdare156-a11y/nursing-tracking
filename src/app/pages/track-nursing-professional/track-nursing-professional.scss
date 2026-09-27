@@ -261,34 +261,6 @@ label {
   background-color: #fff;
 }
 
-.result__actions {
-  display: flex;
-  gap: 9px;
-  margin: -4px 15px 22px;
-}
-
-.result-btn {
-  padding: 7px 13px;
-  border: 1px solid #398439;
-  border-radius: 4px;
-  background: #5cb85c;
-  color: #fff;
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-
-  &:hover { background: #449d44; }
-  &:disabled { cursor: wait; opacity: .65; }
-}
-
-.result-btn--print {
-  border-color: #ccc;
-  background: #fff;
-  color: #555;
-
-  &:hover { background: #e6e6e6; }
-}
-
 /* Bootstrap's col-md-10 col-md-offset-1 and col-md-6 col-md-offset-3 */
 @media (min-width: portal.$screen-md) {
   .panel {
@@ -327,18 +299,5 @@ label {
   /* On the original the breadcrumb's container sits inside a -15px row. */
   .crumbs-bar .portal-container {
     margin: 0 -10px;
-  }
-}
-
-@media print {
-  .page-banner,
-  .crumbs-bar,
-  .result__actions {
-    display: none;
-  }
-
-  .panel {
-    min-height: 0;
-    border: 0;
   }
 }
