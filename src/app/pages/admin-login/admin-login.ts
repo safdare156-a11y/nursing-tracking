@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { ReactiveFormsModule, Validators, NonNullableFormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-import { ADMIN_EMAIL, AdminAuthService } from '../../shared/auth/admin-auth.service';
+import { AdminAuthService } from '../../shared/auth/admin-auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -16,11 +16,10 @@ export class AdminLogin {
   private readonly router = inject(Router);
   private readonly formBuilder = inject(NonNullableFormBuilder);
 
-  protected readonly adminEmail = ADMIN_EMAIL;
   protected readonly submitting = signal(false);
   protected readonly error = signal('');
   protected readonly form = this.formBuilder.group({
-    email: [ADMIN_EMAIL, [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
