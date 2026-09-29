@@ -1,0 +1,203 @@
+<header class="page-banner">
+  <div class="portal-container">
+    <h1 class="page-banner__title">Track and Trace - Track your Application</h1>
+  </div>
+</header>
+
+<div class="crumbs-bar">
+  <div class="portal-container">
+    <ol class="breadcrumb">
+      <li><a routerLink="/">Home</a></li>
+      <li class="active">Track and Trace</li>
+    </ol>
+  </div>
+</div>
+
+<main class="portal-container">
+  <section class="panel" aria-labelledby="track-application-heading">
+    @if (results(); as applications) {
+      <div class="page-header page-header--result">
+        <h1 id="track-application-heading">Track your Application - Result</h1>
+        <button type="button" class="back-link" (click)="resetSearch()">Back to Search From</button>
+      </div>
+
+      @if (applications.length) {
+        <p class="total-applications">Total Applications {{ applications.length }} Found.</p>
+        <div class="table-wrap">
+          <table class="applications-table">
+            <thead>
+              <tr>
+                <th scope="col">S.N</th>
+                <th scope="col">Diary</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (application of applications; track application.id; let index = $index) {
+                <tr>
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ application.diaryCode }}</td>
+                  <td>
+                    <button type="button" class="detail-btn" (click)="openDetails(application)">
+                      Detail
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <p class="empty-result">
+          No application was found for this CNIC or reference/token number.
+        </p>
+      }
+    } @else {
+      <h1 id="track-application-heading" class="page-header">Track your Application</h1>
+
+      @if (error()) {
+        <div class="alert alert--danger" role="alert">{{ error() }}</div>
+      }
+
+      <form class="track-form" (submit)="onSubmit($event)" novalidate>
+        <div class="form-group">
+          <label for="application-cnic">Enter your CNIC number below</label>
+          <input
+            #cnicInput
+            id="application-cnic"
+            class="form-control"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="15"
+            placeholder="12345-1234567-1"
+            [value]="cnic()"
+            (input)="cnic.set(cnicInput.value)"
+          />
+        </div>
+
+        <div class="or-divider" aria-hidden="true"><span>Or</span></div>
+
+        <div class="form-group">
+          <label for="application-reference"
+            >Enter your Complete reference/token number below</label
+          >
+          <input
+            #referenceInput
+            id="application-reference"
+            class="form-control"
+            type="text"
+            autocomplete="off"
+            placeholder="Reference/Token Number"
+            [value]="reference()"
+            (input)="reference.set(referenceInput.value)"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="track-btn" [disabled]="searching()">
+            {{ searching() ? 'Searching...' : 'Track Application' }}
+          </button>
+        </div>
+      </form>
+    }
+  </section>
+</main>
+
+@if (selectedApplication(); as application) {
+  <div class="modal-backdrop" (click)="closeDetails()">
+    <section
+      class="application-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="application-modal-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="modal-header">
+        <strong>Application Work Logs Details</strong>
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close details"
+          (click)="closeDetails()"
+        >
+          ×
+        </button>
+      </header>
+
+      <h2 id="application-modal-title">Application Logs Details</h2>
+      <div class="table-wrap">
+        <table class="details-table">
+          <thead>
+            <tr>
+              <th scope="col">Stage</th>
+              <th scope="col">Finished At</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (log of application.logs; track $index) {
+              <tr>
+                <td>{{ log.stage }}</td>
+                <td>{{ log.finishedAt }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Application Details</h2>
+      <div class="table-wrap">
+        <table class="details-table application-details">
+          <tbody>
+            <tr>
+              <th>Applicant Name</th>
+              <td>{{ application.applicantName }}</td>
+              <th>Diary Code</th>
+              <td>{{ application.diaryCode }}</td>
+            </tr>
+            <tr>
+              <th>Type</th>
+              <td>{{ application.type }}</td>
+              <th>Priority</th>
+              <td>
+                @if (application.priority) {
+                  <span class="priority">{{ application.priority }}</span>
+                }
+              </td>
+            </tr>
+            <tr>
+              <th>Current Status</th>
+              <td colspan="3">{{ application.status }}</td>
+            </tr>
+            <tr>
+              <th>Diary Date</th>
+              <td>{{ application.diaryDate }}</td>
+              <th>Last Updated Date</th>
+              <td>{{ application.lastUpdatedDate }}</td>
+            </tr>
+            <tr>
+              <th>Dispatch Type</th>
+              <td colspan="3">{{ application.dispatchType }}</td>
+            </tr>
+            <tr>
+              <th>Receipt Number</th>
+              <td>{{ application.receiptNumber }}</td>
+              <th>Description</th>
+              <td>{{ application.description }}</td>
+            </tr>
+            <tr>
+              <th>Receiver Name</th>
+              <td>{{ application.receiverName }}</td>
+              <th>Receiver Father Name</th>
+              <td>{{ application.receiverFatherName }}</td>
+            </tr>
+            <tr>
+              <th>Postal Address</th>
+              <td colspan="3">{{ application.postalAddress }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+}

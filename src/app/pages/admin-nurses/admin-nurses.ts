@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 import { AdminAuthService } from '../../shared/auth/admin-auth.service';
@@ -12,7 +12,7 @@ const EMPTY_PHOTO = 'images/portal/dummy-photo.svg';
 
 @Component({
   selector: 'app-admin-nurses',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './admin-nurses.html',
   styleUrl: './admin-nurses.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,8 +41,12 @@ export class AdminNurses {
   protected readonly error = signal('');
   protected readonly notice = signal('');
 
-  protected readonly pageCount = computed(() => Math.max(1, Math.ceil(this.nurses().length / PAGE_SIZE)));
-  protected readonly pageNumbers = computed(() => Array.from({ length: this.pageCount() }, (_, index) => index + 1));
+  protected readonly pageCount = computed(() =>
+    Math.max(1, Math.ceil(this.nurses().length / PAGE_SIZE)),
+  );
+  protected readonly pageNumbers = computed(() =>
+    Array.from({ length: this.pageCount() }, (_, index) => index + 1),
+  );
   protected readonly paginatedNurses = computed(() => {
     const page = Math.min(this.page(), this.pageCount());
     return this.nurses().slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -63,8 +67,15 @@ export class AdminNurses {
   protected startCreate(): void {
     this.editingId.set(null);
     this.form.reset({
-      fullName: '', nicNumber: '', qualifications: '', speciality: 'NA', registrationCategory: '',
-      registrationNumber: '', initialRegistrationDate: '', licenseExpirationDate: '', photoUrl: '',
+      fullName: '',
+      nicNumber: '',
+      qualifications: '',
+      speciality: 'NA',
+      registrationCategory: '',
+      registrationNumber: '',
+      initialRegistrationDate: '',
+      licenseExpirationDate: '',
+      photoUrl: '',
     });
     this.error.set('');
     this.formOpen.set(true);
@@ -102,7 +113,10 @@ export class AdminNurses {
     const values = this.form.getRawValue();
     const nurse: NurseInput = {
       ...values,
-      qualifications: values.qualifications.split(',').map((item) => item.trim()).filter(Boolean),
+      qualifications: values.qualifications
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean),
       photoUrl: values.photoUrl.trim() || EMPTY_PHOTO,
     };
 
@@ -118,7 +132,9 @@ export class AdminNurses {
       }
       this.formOpen.set(false);
     } catch {
-      this.error.set('Record could not be saved. Check your Firebase Firestore rules and try again.');
+      this.error.set(
+        'Record could not be saved. Check your Firebase Firestore rules and try again.',
+      );
     } finally {
       this.saving.set(false);
     }
@@ -133,7 +149,9 @@ export class AdminNurses {
       this.notice.set('Nurse record deleted.');
       if (this.page() > this.pageCount()) this.page.set(this.pageCount());
     } catch {
-      this.error.set('Record could not be deleted. Check your Firebase Firestore rules and try again.');
+      this.error.set(
+        'Record could not be deleted. Check your Firebase Firestore rules and try again.',
+      );
     }
   }
 
@@ -154,7 +172,9 @@ export class AdminNurses {
       await this.nurseService.syncPublicLookups(this.nurses());
       this.notice.set('Tracking data has been synced. NIC and passport lookups are now available.');
     } catch {
-      this.error.set('Tracking data could not be synced. Check your Firebase Firestore rules and try again.');
+      this.error.set(
+        'Tracking data could not be synced. Check your Firebase Firestore rules and try again.',
+      );
     } finally {
       this.syncing.set(false);
     }

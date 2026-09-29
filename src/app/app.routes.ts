@@ -31,16 +31,27 @@ export const routes: Routes = [
         title: 'Welcome! PNC User',
       },
       {
-        path: 'admin/login',
+        path: 'track-your-application',
         loadComponent: () =>
-          import('./pages/admin-login/admin-login').then((m) => m.AdminLogin),
+          import('./pages/track-application/track-application').then((m) => m.TrackApplication),
+        title: 'Welcome! PNC User',
+      },
+      {
+        path: 'admin/login',
+        loadComponent: () => import('./pages/admin-login/admin-login').then((m) => m.AdminLogin),
         title: 'Admin Sign In - PNMC',
+      },
+      {
+        path: 'admin/applications',
+        canActivate: [adminAuthGuard],
+        loadComponent: () =>
+          import('./pages/admin-applications/admin-applications').then((m) => m.AdminApplications),
+        title: 'Application Tracking - PNMC Admin',
       },
       {
         path: 'admin',
         canActivate: [adminAuthGuard],
-        loadComponent: () =>
-          import('./pages/admin-nurses/admin-nurses').then((m) => m.AdminNurses),
+        loadComponent: () => import('./pages/admin-nurses/admin-nurses').then((m) => m.AdminNurses),
         title: 'Nursing Professionals - PNMC Admin',
       },
     ],

@@ -34,4 +34,12 @@ describe('App', () => {
     );
     expect(page.querySelector('#track-identifier')).toBeTruthy();
   });
+
+  it('should render the application tracker in the portal layout', async () => {
+    const harness = await RouterTestingHarness.create('/track-your-application');
+    const page = harness.fixture.nativeElement as HTMLElement;
+    expect(page.querySelector('h1.page-header')?.textContent).toContain('Track your Application');
+    expect(page.querySelector('#application-cnic')).toBeTruthy();
+    expect(page.querySelector('#application-reference')).toBeTruthy();
+  });
 });

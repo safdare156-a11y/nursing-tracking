@@ -61,7 +61,7 @@ export class PortalLayout {
       },
     ],
     [
-      { label: 'Check Application Status', href: `${PORTAL}/track-your-application` },
+      { label: 'Check Application Status', route: '/track-your-application' },
       { label: 'Track Nursing Professionals', route: '/track/nursing-professional' },
       { label: 'Nursing Council Licensing Examination' },
     ],

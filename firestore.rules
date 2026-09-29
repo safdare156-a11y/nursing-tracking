@@ -18,5 +18,16 @@ service cloud.firestore {
       allow list: if false;
       allow write: if isAdmin();
     }
+
+    // Private admin records and exact public tracking lookups for applications.
+    match /applications/{applicationId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /applicationLookup/{identifier} {
+      allow get: if true;
+      allow list: if false;
+      allow write: if isAdmin();
+    }
   }
 }

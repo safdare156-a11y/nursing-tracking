@@ -1,0 +1,178 @@
+<main class="admin-page">
+  <header class="admin-page__header">
+    <div>
+      <p class="admin-page__eyebrow">PNMC administration</p>
+      <h1>Application tracking</h1>
+      <p>Manage applications that applicants can track by CNIC or diary/reference number.</p>
+    </div>
+    <div class="admin-page__actions">
+      <a class="button button--light" routerLink="/admin">Nursing professionals</a>
+      <button class="button button--light" type="button" (click)="logout()">Logout</button>
+      <button class="button" type="button" (click)="startCreate()">+ Add application</button>
+    </div>
+  </header>
+
+  @if (notice()) {
+    <p class="alert alert--success" role="status">{{ notice() }}</p>
+  }
+  @if ((error() || loadError()) && !formOpen()) {
+    <p class="alert alert--error" role="alert">{{ error() || loadError() }}</p>
+  }
+
+  <section class="records" aria-label="Application records">
+    <div class="records__topline">
+      <strong
+        >{{ applications().length }} application{{ applications().length === 1 ? '' : 's' }}</strong
+      >
+      <span>Page {{ page() > pageCount() ? pageCount() : page() }} of {{ pageCount() }}</span>
+    </div>
+
+    <div class="records__scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>CNIC</th>
+            <th>Diary / reference</th>
+            <th>Status</th>
+            <th>Last updated</th>
+            <th><span class="sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (application of paginatedApplications(); track application.id) {
+            <tr>
+              <td>
+                <strong>{{ application.applicantName }}</strong>
+              </td>
+              <td>{{ application.cnicNumber }}</td>
+              <td>{{ application.diaryCode }}</td>
+              <td>{{ application.status }}</td>
+              <td>{{ application.lastUpdatedDate || '—' }}</td>
+              <td class="row-actions">
+                <button type="button" (click)="startEdit(application)">Edit</button
+                ><button class="delete" type="button" (click)="remove(application)">Delete</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td class="records__empty" colspan="6">
+                No applications yet. Use “Add application” to create the first tracking record.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (applications().length > 0) {
+      <nav class="pagination" aria-label="Application list pages">
+        <button type="button" [disabled]="page() <= 1" (click)="goToPage(page() - 1)">
+          Previous
+        </button>
+        @for (number of pageNumbers(); track number) {
+          <button
+            type="button"
+            [class.is-active]="number === page()"
+            [attr.aria-current]="number === page() ? 'page' : null"
+            (click)="goToPage(number)"
+          >
+            {{ number }}
+          </button>
+        }
+        <button type="button" [disabled]="page() >= pageCount()" (click)="goToPage(page() + 1)">
+          Next
+        </button>
+      </nav>
+    }
+  </section>
+</main>
+
+@if (formOpen()) {
+  <div class="modal-backdrop" (click)="closeForm()">
+    <section
+      class="application-form"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="application-form-title"
+      (click)="$event.stopPropagation()"
+    >
+      <header>
+        <div>
+          <p class="admin-page__eyebrow">Tracking record</p>
+          <h2 id="application-form-title">
+            {{ editingId() ? 'Edit application' : 'Add application' }}
+          </h2>
+        </div>
+        <button class="close" type="button" aria-label="Close" (click)="closeForm()">
+          &times;
+        </button>
+      </header>
+      @if (error()) {
+        <p class="alert alert--error" role="alert">{{ error() }}</p>
+      }
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <label
+          >CNIC number *<input
+            type="text"
+            formControlName="cnicNumber"
+            placeholder="12345-1234567-1"
+        /></label>
+        <label
+          >Diary / reference code *<input
+            type="text"
+            formControlName="diaryCode"
+            placeholder="D-Mar-22-407681"
+        /></label>
+        <label>Applicant name *<input type="text" formControlName="applicantName" /></label>
+        <label
+          >Application type *<input type="text" formControlName="type" placeholder="e.g. Renewal"
+        /></label>
+        <label
+          >Current status *<input
+            type="text"
+            formControlName="status"
+            placeholder="e.g. Dispatched"
+        /></label>
+        <label
+          >Priority <input type="text" formControlName="priority" placeholder="e.g. Urgent"
+        /></label>
+        <label
+          >Diary date <input type="datetime-local" step="1" formControlName="diaryDate"
+        /></label>
+        <label
+          >Last updated date
+          <input type="datetime-local" step="1" formControlName="lastUpdatedDate"
+        /></label>
+        <label
+          >Dispatch type
+          <input type="text" formControlName="dispatchType" placeholder="OCS / M&P Courier"
+        /></label>
+        <label>Receipt number <input type="text" formControlName="receiptNumber" /></label>
+        <label>Description <input type="text" formControlName="description" /></label>
+        <label>Receiver name <input type="text" formControlName="receiverName" /></label>
+        <label
+          >Receiver father name <input type="text" formControlName="receiverFatherName"
+        /></label>
+        <label class="form-wide"
+          >Postal address <textarea rows="2" formControlName="postalAddress"></textarea>
+        </label>
+        <label class="form-wide"
+          >Application work logs
+          <textarea
+            rows="5"
+            formControlName="workLogs"
+            placeholder="Approval Date | 29 Mar 2022 09:04:51 AM&#10;Print Date | 29 Mar 2022 12:09:35 PM"
+          ></textarea
+          ><small>Enter one log per line as: Stage | Finished At</small></label
+        >
+        <footer>
+          <button class="button button--light" type="button" (click)="closeForm()">Cancel</button
+          ><button class="button" type="submit" [disabled]="saving()">
+            {{ saving() ? 'Saving...' : 'Save application' }}
+          </button>
+        </footer>
+      </form>
+    </section>
+  </div>
+}
