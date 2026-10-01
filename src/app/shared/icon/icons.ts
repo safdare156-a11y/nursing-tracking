@@ -3,7 +3,7 @@ export interface IconDefinition {
   paths: string[];
 }
 
-/** SVG icons used across the site (same artwork as pnmc.gov.pk). */
+/** SVG icons used across the site (same artwork as pnmc.org.pk). */
 export const ICONS = {
   facebook: {
     viewBox: '0 0 32 32',
