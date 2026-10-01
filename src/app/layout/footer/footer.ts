@@ -12,6 +12,8 @@ import { MenuLink } from '../header/menu';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
+  private static readonly publicSite = 'https://pnmc.org.pk/';
+
   protected readonly year = new Date().getFullYear();
 
   protected readonly extraLinks: MenuLink[] = [
@@ -27,4 +29,9 @@ export class Footer {
     { label: 'Terms of Service', href: 'https://pnmc.org.pk/terms-of-service' },
     { label: 'Privacy Policy', href: 'https://pnmc.org.pk/privacy-policy' },
   ];
+
+  /** Public-content pages are intentionally displayed without outbound navigation. */
+  protected isDisabledPublicPageLink(href: string | undefined): boolean {
+    return href?.startsWith(Footer.publicSite) ?? false;
+  }
 }

@@ -15,6 +15,8 @@ import { MAIN_MENU, SOCIAL_LINKS } from './menu';
   },
 })
 export class Header {
+  private static readonly publicSite = 'https://pnmc.org.pk/';
+
   protected readonly menu = MAIN_MENU;
   protected readonly socialLinks = SOCIAL_LINKS;
 
@@ -30,5 +32,10 @@ export class Header {
   protected closeMenu(): void {
     this.menuOpen.set(false);
     this.openSubmenu.set(null);
+  }
+
+  /** Public-content pages are intentionally displayed without outbound navigation. */
+  protected isDisabledPublicPageLink(href: string | undefined): boolean {
+    return href?.startsWith(Header.publicSite) ?? false;
   }
 }

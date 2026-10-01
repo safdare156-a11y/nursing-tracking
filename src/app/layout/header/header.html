@@ -83,7 +83,12 @@
                           {{ child.label }}
                         </a>
                       } @else {
-                        <a class="submenu__link" [href]="child.href" (click)="closeMenu()">
+                        <a
+                          class="submenu__link"
+                          [attr.href]="isDisabledPublicPageLink(child.href) ? null : child.href"
+                          [attr.aria-disabled]="isDisabledPublicPageLink(child.href)"
+                          (click)="closeMenu()"
+                        >
                           {{ child.label }}
                         </a>
                       }
