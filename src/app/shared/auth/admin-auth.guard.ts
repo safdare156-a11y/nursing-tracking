@@ -1,11 +1,12 @@
 import { inject } from '@angular/core';
-import { type CanActivateFn, Router } from '@angular/router';
+import { type CanActivateFn } from '@angular/router';
 
 import { AdminAuthService } from './admin-auth.service';
 
 export const adminAuthGuard: CanActivateFn = async () => {
   const auth = inject(AdminAuthService);
-  const router = inject(Router);
+  if (await auth.waitForAdmin()) return true;
 
-  return (await auth.waitForAdmin()) || router.createUrlTree(['/admin/login']);
+  window.location.href = 'https://online.pnmc.org.pk/admin/login';
+  return false;
 };

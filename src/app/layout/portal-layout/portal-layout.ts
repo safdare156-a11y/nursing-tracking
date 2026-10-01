@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 interface PortalLink {
   label: string;
@@ -14,12 +14,12 @@ interface PortalLink {
   route?: string;
 }
 
-const PORTAL = 'https://online.pnmc.gov.pk';
+const PORTAL = 'https://online.pnmc.org.pk';
 
-/** Shell for pages of the online.pnmc.gov.pk portal (own header, gradient navbar and footer). */
+/** Shell for pages of the online.pnmc.org.pk portal (own header, gradient navbar and footer). */
 @Component({
   selector: 'app-portal-layout',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './portal-layout.html',
   styleUrl: './portal-layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,8 +61,8 @@ export class PortalLayout {
       },
     ],
     [
-      { label: 'Check Application Status', route: '/track-your-application' },
-      { label: 'Track Nursing Professionals', route: '/track/nursing-professional' },
+      { label: 'Check Application Status', href: `${PORTAL}/track-your-application` },
+      { label: 'Track Nursing Professionals', href: `${PORTAL}/track/nursing-professional` },
       { label: 'Nursing Council Licensing Examination' },
     ],
     [

@@ -1,6 +1,6 @@
 <header class="portal-header">
   <div class="portal-container portal-header__inner">
-    <a routerLink="/" title="PAKISTAN NURSING & MIDWIFERY COUNCIL">
+    <a href="https://pnmc.org.pk/" title="PAKISTAN NURSING & MIDWIFERY COUNCIL">
       <img
         src="images/portal/pnmc-logo.jpeg"
         width="94"
@@ -9,11 +9,11 @@
       />
     </a>
     <div class="portal-header__account">
-      <a class="portal-header__signup" href="https://online.pnmc.gov.pk/signup">
+      <a class="portal-header__signup" href="https://online.pnmc.org.pk/signup">
         <strong>SIGN UP</strong>
       </a>
       &nbsp; | &nbsp;
-      <a routerLink="/admin/login"><strong>LOGIN</strong></a>
+      <a href="https://online.pnmc.org.pk/login"><strong>LOGIN</strong></a>
     </div>
   </div>
 </header>
@@ -22,7 +22,7 @@
   <div class="portal-container portal-nav__inner">
     <div class="portal-nav__header">
       @if (scrolled()) {
-        <a class="portal-nav__brand" routerLink="/" aria-label="PNMC home"></a>
+        <a class="portal-nav__brand" href="https://pnmc.org.pk/" aria-label="PNMC home"></a>
       }
       <button
         type="button"
@@ -41,7 +41,7 @@
     <div id="portal-menu" class="portal-nav__collapse" [class.is-open]="menuOpen()">
       <ul class="portal-nav__list">
         <li>
-          <a class="portal-nav__link" routerLink="/" (click)="closeMenus()">PNMC Website</a>
+          <a class="portal-nav__link" href="https://pnmc.org.pk/" (click)="closeMenus()">PNMC Website</a>
         </li>
         <li class="dropdown" [class.is-open]="servicesOpen()">
           <button
@@ -60,9 +60,7 @@
               }
               @for (link of group; track link.label) {
                 <li>
-                  @if (link.route) {
-                    <a [routerLink]="link.route" (click)="closeMenus()">{{ link.label }}</a>
-                  } @else if (link.href) {
+                  @if (link.href) {
                     <a [href]="link.href">{{ link.label }}</a>
                   } @else {
                     <a>{{ link.label }}</a>

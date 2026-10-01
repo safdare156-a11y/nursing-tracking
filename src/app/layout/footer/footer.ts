@@ -15,16 +15,16 @@ export class Footer {
   protected readonly year = new Date().getFullYear();
 
   protected readonly extraLinks: MenuLink[] = [
-    { label: 'About', href: 'https://pnmc.gov.pk/about-pnmc/' },
-    { label: 'Functions', href: 'https://pnmc.gov.pk/functions-of-pnmc/' },
-    { label: 'Management', href: 'https://pnmc.gov.pk/management/' },
-    { label: 'Statistics', href: 'https://online.pnmc.gov.pk/nursing/statistics' },
-    { label: 'Check Reg', route: '/track/nursing-professional' },
-    { label: 'Contact', href: 'https://pnmc.gov.pk/contact-us/' },
+    { label: 'About', href: 'https://pnmc.org.pk/about-pnmc/' },
+    { label: 'Functions', href: 'https://pnmc.org.pk/functions-of-pnmc/' },
+    { label: 'Management', href: 'https://pnmc.org.pk/management/' },
+    { label: 'Statistics', href: 'https://online.pnmc.org.pk/nursing/statistics' },
+    { label: 'Check Reg', href: 'https://online.pnmc.org.pk/track/nursing-professional' },
+    { label: 'Contact', href: 'https://pnmc.org.pk/contact-us/' },
   ];
 
   protected readonly legalLinks = [
-    { label: 'Terms of Service', href: 'https://pnmc.gov.pk/terms-of-service' },
-    { label: 'Privacy Policy', href: 'https://pnmc.gov.pk/privacy-policy' },
+    { label: 'Terms of Service', href: 'https://pnmc.org.pk/terms-of-service' },
+    { label: 'Privacy Policy', href: 'https://pnmc.org.pk/privacy-policy' },
   ];
 }

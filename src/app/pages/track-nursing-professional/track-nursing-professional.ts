@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 import {
@@ -18,7 +18,7 @@ interface Notice {
 /** "Track and Trace - Nursing Professional" page of the PNMC portal. */
 @Component({
   selector: 'app-track-nursing-professional',
-  imports: [DatePipe, RouterLink],
+  imports: [DatePipe],
   templateUrl: './track-nursing-professional.html',
   styleUrl: './track-nursing-professional.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

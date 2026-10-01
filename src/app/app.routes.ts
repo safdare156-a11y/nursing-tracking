@@ -18,7 +18,7 @@ export const routes: Routes = [
     ],
   },
   {
-    // Pages of the online.pnmc.gov.pk portal, which has its own header and footer.
+    // Pages of the online.pnmc.org.pk portal, which has its own header and footer.
     path: '',
     loadComponent: () => import('./layout/portal-layout/portal-layout').then((m) => m.PortalLayout),
     children: [

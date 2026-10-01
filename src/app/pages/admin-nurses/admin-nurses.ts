@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 import { AdminAuthService } from '../../shared/auth/admin-auth.service';
@@ -12,15 +11,16 @@ const EMPTY_PHOTO = 'images/portal/dummy-photo.svg';
 
 @Component({
   selector: 'app-admin-nurses',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './admin-nurses.html',
   styleUrl: './admin-nurses.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminNurses {
+  private static readonly portalUrl = 'https://online.pnmc.org.pk';
+
   private readonly nurseService = inject(NurseService);
   private readonly auth = inject(AdminAuthService);
-  private readonly router = inject(Router);
   private readonly formBuilder = inject(NonNullableFormBuilder);
 
   protected readonly loadError = signal('');
@@ -161,7 +161,7 @@ export class AdminNurses {
 
   protected async logout(): Promise<void> {
     await this.auth.logout();
-    await this.router.navigate(['/admin/login']);
+    window.location.href = `${AdminNurses.portalUrl}/admin/login`;
   }
 
   protected async syncTrackingData(): Promise<void> {

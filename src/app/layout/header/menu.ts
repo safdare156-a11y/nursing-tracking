@@ -12,8 +12,8 @@ export interface MenuItem {
   children?: MenuLink[];
 }
 
-const SITE = 'https://pnmc.gov.pk';
-const PORTAL = 'https://online.pnmc.gov.pk';
+const SITE = 'https://pnmc.org.pk';
+const PORTAL = 'https://online.pnmc.org.pk';
 
 export const MAIN_MENU: MenuItem[] = [
   { label: 'Home', route: '/' },
@@ -63,16 +63,16 @@ export const MAIN_MENU: MenuItem[] = [
       { label: 'For Nursing Professionals', href: `${SITE}/for-nursing-professionals/` },
       { label: 'For Institutes', href: `${SITE}/for-institutes/` },
       { label: 'For Nursing Faculty', href: `${SITE}/for-nursing-faculty/` },
-      { label: 'For General Public', route: '/track/nursing-professional' },
+      { label: 'For General Public', href: `${PORTAL}/track/nursing-professional` },
     ],
   },
   {
     label: 'How Can I?',
     children: [
-      { label: 'Verify a Nursing Professional', route: '/track/nursing-professional' },
+      { label: 'Verify a Nursing Professional', href: `${PORTAL}/track/nursing-professional` },
       { label: 'Pursue Nursing Education', href: `${PORTAL}/educational/programs` },
       { label: 'Register as a Nursing Professional', href: `${PORTAL}/` },
-      { label: 'Check my Registration Status', route: '/track/nursing-professional' },
+      { label: 'Check my Registration Status', href: `${PORTAL}/track/nursing-professional` },
       { label: 'Pay Fee', href: `${SITE}/fee/` },
       { label: 'Contact Us', href: `${SITE}/contact-us/` },
       { label: 'FAQs', href: `${SITE}/faqs/` },

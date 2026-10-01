@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 import { AdminAuthService } from '../../shared/auth/admin-auth.service';
@@ -16,15 +15,16 @@ const PAGE_SIZE = 10;
 
 @Component({
   selector: 'app-admin-applications',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './admin-applications.html',
   styleUrl: './admin-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminApplications {
+  private static readonly portalUrl = 'https://online.pnmc.org.pk';
+
   private readonly applicationService = inject(ApplicationService);
   private readonly auth = inject(AdminAuthService);
-  private readonly router = inject(Router);
   private readonly formBuilder = inject(NonNullableFormBuilder);
 
   protected readonly loadError = signal('');
@@ -183,7 +183,7 @@ export class AdminApplications {
 
   protected async logout(): Promise<void> {
     await this.auth.logout();
-    await this.router.navigate(['/admin/login']);
+    window.location.href = `${AdminApplications.portalUrl}/admin/login`;
   }
 }
 

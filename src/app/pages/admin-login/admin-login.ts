@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, Validators, NonNullableFormBuilder } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
 
 import { AdminAuthService } from '../../shared/auth/admin-auth.service';
 
 @Component({
   selector: 'app-admin-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './admin-login.html',
   styleUrl: './admin-login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminLogin {
+  private static readonly portalUrl = 'https://online.pnmc.org.pk';
+
   private readonly auth = inject(AdminAuthService);
-  private readonly router = inject(Router);
   private readonly formBuilder = inject(NonNullableFormBuilder);
 
   protected readonly submitting = signal(false);
@@ -34,7 +34,7 @@ export class AdminLogin {
     try {
       const { email, password } = this.form.getRawValue();
       await this.auth.login(email, password);
-      await this.router.navigate(['/admin']);
+      window.location.href = `${AdminLogin.portalUrl}/admin`;
     } catch (error: unknown) {
       this.error.set(messageFor(error));
     } finally {

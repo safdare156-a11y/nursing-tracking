@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 import type { TrackedApplication } from '../../shared/applications/application.service';
 import { ApplicationLookup, ApplicationLookupUnavailableError } from './application-lookup';
 
 @Component({
   selector: 'app-track-application',
-  imports: [RouterLink],
   templateUrl: './track-application.html',
   styleUrl: './track-application.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
